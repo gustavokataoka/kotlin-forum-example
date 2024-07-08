@@ -11,6 +11,7 @@ import br.gk.forum.repository.TopicoRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class TopicoService(
@@ -50,6 +51,7 @@ class TopicoService(
     fun atualizar(id: Long, editTopicoForm: EditTopicoForm): TopicoView {
         val topico = buscarModelPorId(id)
         topico.fromEditForm(editTopicoForm)
+        topico.dataAlteracao = LocalDateTime.now()
         topicoRepository.save(topico)
         return topico.let { topicoViewMapper.map(it) }
     }

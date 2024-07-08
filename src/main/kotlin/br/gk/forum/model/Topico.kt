@@ -8,6 +8,7 @@ data class Topico(
     var titulo: String,
     var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
+    var dataAlteracao : LocalDateTime? = null,
     @ManyToOne
     val curso: Curso,
     @ManyToOne
