@@ -31,7 +31,7 @@ class TopicoService(
 
     fun buscarModelPorId(id: Long): Topico {
         return topicoRepository.findById(id)
-            .orElseThrow { throw NotFoundException("Tópico não encontrado") }
+            .orElseThrow { throw NotFoundException(NOT_FOUND) }
     }
 
     fun buscarPorId(id: Long): TopicoView {
@@ -67,6 +67,10 @@ class TopicoService(
 
     fun naoRespondidos(): List<TopicoView> {
         return topicoRepository.topicosNaoRespondidos().map { topicoViewMapper.map(it) }
+    }
+
+    companion object {
+        const val NOT_FOUND: String = "Tópico não encontrado"
     }
 
 }

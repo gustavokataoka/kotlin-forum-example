@@ -1,6 +1,7 @@
 package br.gk.forum.model
 
 import jakarta.persistence.*
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import java.time.LocalDateTime
 
 @Entity
@@ -16,5 +17,5 @@ data class Topico(
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
     @OneToMany(mappedBy = "topico")
-    val respostas: List<Resposta> = ArrayList()
+    val respostas: List<Resposta> = ArrayList(),
 ) : AbstractEntity()
