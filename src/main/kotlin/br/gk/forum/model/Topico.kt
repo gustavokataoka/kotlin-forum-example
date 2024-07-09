@@ -1,7 +1,6 @@
 package br.gk.forum.model
 
 import jakarta.persistence.*
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import java.time.LocalDateTime
 
 @Entity
@@ -9,7 +8,7 @@ data class Topico(
     var titulo: String,
     var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
-    var dataAlteracao : LocalDateTime? = null,
+    var dataAlteracao: LocalDateTime? = null,
     @ManyToOne
     val curso: Curso,
     @ManyToOne
