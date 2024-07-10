@@ -6,5 +6,5 @@ object TopicoTest {
         mensagem = "Aprendendo kotlin basico",
         curso = CursoTest.build(),
         autor = UsuarioTest.build()
-    ).also { it.id = 1 }
+    )
 }

@@ -9,12 +9,17 @@ data class Topico(
     var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     var dataAlteracao: LocalDateTime? = null,
-    @ManyToOne
+
+    @ManyToOne(cascade = [CascadeType.PERSIST])
     val curso: Curso,
-    @ManyToOne
+
+    @ManyToOne(cascade = [CascadeType.PERSIST])
     val autor: Usuario,
+
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
-    @OneToMany(mappedBy = "topico")
+
+    @OneToMany(mappedBy = "topico", cascade = [CascadeType.PERSIST])
     val respostas: List<Resposta> = ArrayList(),
+
 ) : AbstractEntity()

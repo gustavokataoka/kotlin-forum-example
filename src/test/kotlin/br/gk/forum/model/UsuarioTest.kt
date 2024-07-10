@@ -7,5 +7,4 @@ object UsuarioTest {
         password = "123",
         roles = listOf(Role("ADMIN"))
     )
-
 }
