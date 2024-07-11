@@ -25,7 +25,7 @@ class TopicoSpecification(
 
         val predicates: MutableList<Predicate> = mutableListOf()
 
-        titulo?.let {
+        titulo.let {
             predicates.add(criteriaBuilder.like(root.get("titulo"), "%$it%"))
         }
 
