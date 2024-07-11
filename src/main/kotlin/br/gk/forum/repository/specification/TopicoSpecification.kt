@@ -3,18 +3,16 @@ package br.gk.forum.repository.specification
 import br.gk.forum.model.Curso
 import br.gk.forum.model.Topico
 import jakarta.persistence.criteria.*
+import org.jetbrains.annotations.NotNull
 import org.springframework.data.jpa.domain.Specification
-import org.springframework.web.bind.annotation.RequestParam
 
 class TopicoSpecification(
 
-    @RequestParam(required = true)
-    val titulo: String?,
+    @NotNull
+    val titulo: String,
 
-    @RequestParam(required = false)
     val mensagem: String?,
 
-    @RequestParam(required = false)
     val curso: String?
 
 ) : Specification<Topico> {

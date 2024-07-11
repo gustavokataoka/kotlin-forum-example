@@ -38,7 +38,7 @@ class TopicoController(
 
     @GetMapping("/buscar")
     fun buscar(
-        topicoSpecification: TopicoSpecification,
+        @Valid topicoSpecification: TopicoSpecification,
         @PageableDefault(
             size = 5,
             sort = ["dataCriacao"],
