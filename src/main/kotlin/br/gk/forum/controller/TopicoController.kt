@@ -1,6 +1,7 @@
 package br.gk.forum.controller
 
 import br.gk.forum.dto.*
+import br.gk.forum.repository.specification.TopicoSpecification
 import br.gk.forum.service.TopicoService
 import jakarta.validation.Valid
 import org.springframework.cache.annotation.CacheEvict
@@ -33,6 +34,18 @@ class TopicoController(
         ) pageable: Pageable
     ): PageDto<TopicoView> {
         return topicoService.listar(nomeCurso, pageable)
+    }
+
+    @GetMapping("/buscar")
+    fun buscar(
+        topicoSpecification: TopicoSpecification,
+        @PageableDefault(
+            size = 5,
+            sort = ["dataCriacao"],
+            direction = Sort.Direction.DESC
+        ) pageable: Pageable
+    ): PageDto<TopicoView> {
+        return topicoService.buscar(topicoSpecification, pageable)
     }
 
     @GetMapping("/{id}")

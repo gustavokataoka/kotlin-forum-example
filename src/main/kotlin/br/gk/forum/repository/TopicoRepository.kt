@@ -5,9 +5,10 @@ import br.gk.forum.model.Topico
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 
-interface TopicoRepository : JpaRepository<Topico, Long> {
+interface TopicoRepository : JpaRepository<Topico, Long>, JpaSpecificationExecutor<Topico> {
     fun findByCursoNome(nomeCurso: String, pageable: Pageable): Page<Topico>
 
     @Query("SELECT new br.gk.forum.dto.TopicoPorCategoriaDto(c.categoria, COUNT(t)) " +

@@ -8,6 +8,7 @@ import br.gk.forum.mapper.TopicoFormMapper
 import br.gk.forum.mapper.TopicoViewMapper
 import br.gk.forum.model.Topico
 import br.gk.forum.repository.TopicoRepository
+import br.gk.forum.repository.specification.TopicoSpecification
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -67,6 +68,11 @@ class TopicoService(
 
     fun naoRespondidos(): List<TopicoView> {
         return topicoRepository.topicosNaoRespondidos().map { topicoViewMapper.map(it) }
+    }
+
+    fun buscar(topicoSpecification: TopicoSpecification, pageable: Pageable): PageDto<TopicoView> {
+        return topicoRepository.findAll(topicoSpecification, pageable)
+            .map { e -> topicoViewMapper.map(e) }.toPageDTO()
     }
 
     companion object {
