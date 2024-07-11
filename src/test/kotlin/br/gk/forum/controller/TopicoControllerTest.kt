@@ -32,6 +32,7 @@ class TopicoControllerTest {
 
     companion object {
         private const val RECURSO = "/topicos"
+        private const val RECURSO_ID = RECURSO.plus("/%s")
     }
 
     @BeforeEach
@@ -64,6 +65,32 @@ class TopicoControllerTest {
         }.andExpect {
             status {
                 isOk()
+            }
+        }
+    }
+
+    @Test
+    fun `deve retornar codigo 200 quando chamar topico por id com token`() {
+        mockMvc.get(RECURSO_ID.format(1)) {
+            headers {
+                setBearerAuth(token)
+            }
+        }.andExpect {
+            status {
+                isOk()
+            }
+        }
+    }
+
+    @Test
+    fun `deve retornar codigo 404 quando chamar topico por id que nao existe com token`() {
+        mockMvc.get(RECURSO_ID.format(999999)) {
+            headers {
+                setBearerAuth(token)
+            }
+        }.andExpect {
+            status {
+                isNotFound()
             }
         }
     }
