@@ -33,8 +33,8 @@ class SecurityConfiguration(
             authorizeHttpRequests {
                 authorize(HttpMethod.OPTIONS, "/**", permitAll)
 
-                authorize("/api/v1/swagger/**", permitAll)
-                authorize("/swagger**/**", permitAll)
+                authorize("/v3/api-docs/**", permitAll)
+                authorize("/swagger-ui/**", permitAll)
 
                 authorize("/error", permitAll)
                 authorize("/auth/**", permitAll)

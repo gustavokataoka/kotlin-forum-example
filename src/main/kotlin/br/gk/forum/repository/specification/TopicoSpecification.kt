@@ -3,12 +3,12 @@ package br.gk.forum.repository.specification
 import br.gk.forum.model.Curso
 import br.gk.forum.model.Topico
 import jakarta.persistence.criteria.*
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 import org.springframework.data.jpa.domain.Specification
 
 class TopicoSpecification(
 
-    @NotNull
+    @NotNull(message = "O título deve ser informado")
     val titulo: String,
 
     val mensagem: String?,

@@ -3,7 +3,9 @@ package br.gk.forum.controller
 import br.gk.forum.dto.*
 import br.gk.forum.repository.specification.TopicoSpecification
 import br.gk.forum.service.TopicoService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
@@ -19,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/topicos")
+@SecurityRequirement(name = "bearerAuth")
 class TopicoController(
     private val topicoService: TopicoService
 ) {
@@ -38,7 +41,7 @@ class TopicoController(
 
     @GetMapping("/buscar")
     fun buscar(
-        @Valid topicoSpecification: TopicoSpecification,
+        @Valid @ParameterObject topicoSpecification: TopicoSpecification,
         @PageableDefault(
             size = 5,
             sort = ["dataCriacao"],
