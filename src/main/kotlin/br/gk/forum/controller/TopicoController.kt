@@ -16,12 +16,14 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/topicos")
 @SecurityRequirement(name = "bearerAuth")
+@Validated
 class TopicoController(
     private val topicoService: TopicoService
 ) {
@@ -34,19 +36,19 @@ class TopicoController(
             size = 5,
             sort = ["dataCriacao"],
             direction = Sort.Direction.DESC
-        ) pageable: Pageable
+        ) @ParameterObject pageable: Pageable
     ): PageDto<TopicoView> {
         return topicoService.listar(nomeCurso, pageable)
     }
 
     @GetMapping("/buscar")
     fun buscar(
-        @Valid @ParameterObject topicoSpecification: TopicoSpecification,
+        @Valid topicoSpecification: TopicoSpecification,
         @PageableDefault(
             size = 5,
             sort = ["dataCriacao"],
             direction = Sort.Direction.DESC
-        ) pageable: Pageable
+        ) @ParameterObject pageable: Pageable
     ): PageDto<TopicoView> {
         return topicoService.buscar(topicoSpecification, pageable)
     }

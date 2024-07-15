@@ -2,13 +2,17 @@ package br.gk.forum.repository.specification
 
 import br.gk.forum.model.Curso
 import br.gk.forum.model.Topico
+import io.swagger.v3.oas.annotations.Parameter
 import jakarta.persistence.criteria.*
 import jakarta.validation.constraints.NotNull
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.jpa.domain.Specification
 
-class TopicoSpecification(
+@ParameterObject
+class TopicoSpecification (
 
-    @NotNull(message = "O título deve ser informado")
+    @field:NotNull(message = "O título deve ser informado")
+    @field:Parameter(required = true, name = "titulo", description = "Busca pelo título do tópico")
     val titulo: String,
 
     val mensagem: String?,
