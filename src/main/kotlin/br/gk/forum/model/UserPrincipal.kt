@@ -1,7 +1,6 @@
 package br.gk.forum.model
 
 import org.springframework.security.core.userdetails.UserDetails
-import kotlin.reflect.KProperty
 
 class UserPrincipal(
     private val user: Usuario

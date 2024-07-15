@@ -1,7 +1,6 @@
 package br.gk.forum.dto
 
 import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 data class NovaRespostaForm(

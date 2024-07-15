@@ -1,7 +1,6 @@
 package br.gk.forum.service
 
 import br.gk.forum.exception.NotFoundException
-import br.gk.forum.mapper.TopicoFormMapper
 import br.gk.forum.mapper.TopicoViewMapper
 import br.gk.forum.model.TopicoTest
 import br.gk.forum.model.TopicoViewTest
@@ -24,9 +23,11 @@ class TopicoServiceTest {
         every { map(any()) } returns TopicoViewTest.build()
     }
 
-    private val topicoFormMapperMock = mockk<TopicoFormMapper>()
-
     private val paginacao: Pageable = mockk()
+
+    private val customUserDetailsServiceMock: CustomUserDetailsService = mockk()
+
+    private val cursoServiceMock: CursoService = mockk()
 
     private val topicoRepositoryMock = mockk<TopicoRepository> {
         every {
@@ -39,9 +40,10 @@ class TopicoServiceTest {
     }
 
     private val topicoService = TopicoService(
-        topicoFormMapper = topicoFormMapperMock,
         topicoViewMapper = topicoViewMapperMock,
-        topicoRepository = topicoRepositoryMock
+        topicoRepository = topicoRepositoryMock,
+        customUserDetailsService = customUserDetailsServiceMock,
+        cursoService = cursoServiceMock
     )
 
     @Test

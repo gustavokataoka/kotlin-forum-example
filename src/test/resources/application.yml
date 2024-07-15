@@ -9,6 +9,20 @@ spring:
   jpa:
     show-sql: true
     open-in-view: true
+  mail:
+    host: localhost
+    port: 587
+    username: user
+    password: pass
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8080
 jwt:
