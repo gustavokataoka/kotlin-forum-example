@@ -38,7 +38,7 @@ class RespostaController(
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
+    @PreAuthorize("@respostaSecurity.isOwner(#id, #userDetails)")
     fun atualizar(
         @PathVariable id: Long,
         @PathVariable idTopico: String,
@@ -49,7 +49,7 @@ class RespostaController(
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
+    @PreAuthorize("@respostaSecurity.isOwner(#id, #userDetails)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun excluir(
         @PathVariable id: Long,
