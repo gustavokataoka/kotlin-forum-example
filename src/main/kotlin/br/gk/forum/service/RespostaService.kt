@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service
 class RespostaService(
     private val respostaRepository: RespostaRepository,
     private val respostaViewMapper: RespostaViewMapper,
-    private val usuarioService: UsuarioService,
-    private val topicoService: TopicoService
+    private val topicoService: TopicoService,
+    private val emailService: EmailService,
+    private val customUserDetailsService: CustomUserDetailsService
 ) {
     fun listar(idTopico: Long): List<RespostaView> {
         return respostaRepository.findAll()
@@ -34,12 +35,15 @@ class RespostaService(
 
     @Transactional
     fun cadastrar(id: Long, respostaForm: NovaRespostaForm): RespostaView {
+        val topico = topicoService.buscarModelPorId(id)
+        val user = customUserDetailsService.getAuthenticatedUser()
         val resposta = Resposta(
             mensagem = respostaForm.mensagem,
-            autor = usuarioService.buscarPorId(respostaForm.idAutor),
-            topico = topicoService.buscarModelPorId(id)
+            autor = user,
+            topico = topico
         )
         respostaRepository.save(resposta)
+        emailService.notificarRecebimentoResposta(topico, user)
         return respostaViewMapper.map(resposta)
     }
 

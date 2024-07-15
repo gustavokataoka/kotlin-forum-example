@@ -6,8 +6,6 @@ import br.gk.forum.service.TopicoService
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springdoc.core.annotations.ParameterObject
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -54,7 +52,6 @@ class TopicoController(
     }
 
     @GetMapping("/{id}")
-    @Cacheable("topico_view", key = "#id")
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> {
         return ResponseEntity.ok(topicoService.buscarPorId(id))
     }
@@ -70,7 +67,6 @@ class TopicoController(
     }
 
     @PutMapping("/{id}")
-    @CacheEvict(value = ["topico_view"], key = "#id")
     @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
     fun atualizar(
         @PathVariable id: Long,
@@ -81,9 +77,12 @@ class TopicoController(
     }
 
     @DeleteMapping("/{id}")
-    @CacheEvict(value = ["topico_view"], key = "#id")
+    @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun excluir(@PathVariable id: Long) {
+    fun excluir(
+        @PathVariable id: Long,
+        @AuthenticationPrincipal userDetails: UserDetails
+    ) {
         topicoService.excluir(id)
     }
 

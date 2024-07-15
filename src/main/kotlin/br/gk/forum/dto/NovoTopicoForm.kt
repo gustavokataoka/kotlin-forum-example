@@ -11,7 +11,5 @@ class NovoTopicoForm(
     @field:NotEmpty(message = "Mensagem não pode ser em branco")
     val mensagem: String,
     @field:NotNull
-    val idCurso: Long,
-    @field:NotNull
-    val idAutor: Long
+    val idCurso: Long
 )

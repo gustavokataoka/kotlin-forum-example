@@ -8,12 +8,17 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/topicos/{idTopico}/respostas")
-class RespostaController(private val respostaService: RespostaService) {
+class RespostaController(
+    private val respostaService: RespostaService
+) {
 
     @GetMapping
     fun listar(@PathVariable idTopico: Long): List<RespostaView> {
@@ -33,17 +38,24 @@ class RespostaController(private val respostaService: RespostaService) {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
     fun atualizar(
         @PathVariable id: Long,
         @PathVariable idTopico: String,
-        @RequestBody @Valid editRespostaForm: EditRespostaForm
+        @RequestBody @Valid editRespostaForm: EditRespostaForm,
+        @AuthenticationPrincipal userDetails: UserDetails
     ): ResponseEntity<RespostaView> {
         return ResponseEntity.ok(respostaService.atualizar(id, editRespostaForm))
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@topicoSecurity.isOwner(#id, #userDetails)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun excluir(@PathVariable id: Long, @PathVariable idTopico: String) {
+    fun excluir(
+        @PathVariable id: Long,
+        @PathVariable idTopico: String,
+        @AuthenticationPrincipal userDetails: UserDetails
+    ) {
         respostaService.excluir(id)
     }
 

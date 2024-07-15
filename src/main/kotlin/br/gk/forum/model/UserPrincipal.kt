@@ -1,6 +1,7 @@
 package br.gk.forum.model
 
 import org.springframework.security.core.userdetails.UserDetails
+import kotlin.reflect.KProperty
 
 class UserPrincipal(
     private val user: Usuario
@@ -23,4 +24,6 @@ class UserPrincipal(
     companion object {
         fun create(user: Usuario) = UserPrincipal(user)
     }
+
+    fun getUser() = user
 }
