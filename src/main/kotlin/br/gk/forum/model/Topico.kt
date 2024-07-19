@@ -10,16 +10,16 @@ data class Topico(
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     var dataAlteracao: LocalDateTime? = null,
 
-    @ManyToOne(cascade = [CascadeType.PERSIST])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     val curso: Curso,
 
-    @ManyToOne(cascade = [CascadeType.PERSIST])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     val autor: Usuario,
 
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
 
-    @OneToMany(mappedBy = "topico", cascade = [CascadeType.PERSIST])
+    @OneToMany(mappedBy = "topico", cascade = [CascadeType.MERGE])
     val respostas: List<Resposta> = ArrayList(),
 
 ) : AbstractEntity()

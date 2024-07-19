@@ -86,14 +86,4 @@ class TopicoController(
         topicoService.excluir(id)
     }
 
-    @GetMapping("/relatorio")
-    fun relatorio(): List<TopicoPorCategoriaDto> {
-        return topicoService.relatorio()
-    }
-
-    @GetMapping("/nao-respondidos")
-    fun naoRespondidos(): List<TopicoView> {
-        return topicoService.naoRespondidos()
-    }
-
 }

@@ -72,14 +72,6 @@ class TopicoService(
         topicoRepository.deleteById(id)
     }
 
-    fun relatorio(): List<TopicoPorCategoriaDto> {
-        return topicoRepository.relatorio()
-    }
-
-    fun naoRespondidos(): List<TopicoView> {
-        return topicoRepository.topicosNaoRespondidos().map { topicoViewMapper.map(it) }
-    }
-
     fun buscar(topicoSpecification: TopicoSpecification, pageable: Pageable): PageDto<TopicoView> {
         return topicoRepository.findAll(topicoSpecification, pageable)
             .map { e -> topicoViewMapper.map(e) }.toPageDTO()
