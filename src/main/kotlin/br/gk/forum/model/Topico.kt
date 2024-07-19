@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-data class Topico(
+class Topico(
     var titulo: String,
     var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),

@@ -17,9 +17,7 @@ class UsuarioService(
     }
 
     fun cadastrar (usuario: Usuario) {
-        val updated = usuario.copy(
-            password = passwordEncoder.encode(usuario.password)
-        )
-        usuarioRepository.save(updated)
+        usuario.password = passwordEncoder.encode(usuario.password)
+        usuarioRepository.save(usuario)
     }
 }

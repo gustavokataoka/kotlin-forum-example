@@ -5,7 +5,7 @@ import jakarta.persistence.ManyToOne
 import java.time.LocalDateTime
 
 @Entity
-data class Resposta (
+class Resposta (
     var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     @ManyToOne

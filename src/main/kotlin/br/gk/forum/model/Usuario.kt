@@ -3,11 +3,11 @@ package br.gk.forum.model
 import jakarta.persistence.*
 
 @Entity
-data class Usuario(
+class Usuario(
 
     val nome: String,
     val email: String,
-    val password: String,
+    var password: String,
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
