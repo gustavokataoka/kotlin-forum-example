@@ -3,7 +3,10 @@ package br.gk.forum.integration
 import br.gk.forum.dto.TopicoPorCategoriaDto
 import br.gk.forum.model.TopicoTest
 import br.gk.forum.repository.TopicoRepository
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -25,6 +28,9 @@ class TopicoRepositoryTest {
     @Autowired
     private lateinit var topicoRepository: TopicoRepository
 
+    @PersistenceContext
+    private lateinit var em: EntityManager
+
     companion object {
 
         @Container
@@ -44,9 +50,15 @@ class TopicoRepositoryTest {
         }
     }
 
+    @BeforeEach
+    fun setUp() {
+        em.persist(topico.autor)
+        em.persist(topico.curso)
+        em.persist(topico)
+    }
+
     @Test
     fun `deve gerar um relatorio`() {
-        topicoRepository.save(topico)
 
         val relatorio = topicoRepository.relatorio()
 
@@ -56,7 +68,6 @@ class TopicoRepositoryTest {
 
     @Test
     fun `deve listar topico pelo nome do curso`() {
-        topicoRepository.save(topico)
 
         val topico = topicoRepository.findByCursoNome(topico.curso.nome, PageRequest.of(0, 5))
 
