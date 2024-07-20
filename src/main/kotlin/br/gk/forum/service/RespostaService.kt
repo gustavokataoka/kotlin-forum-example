@@ -20,7 +20,7 @@ class RespostaService(
     private val customUserDetailsService: CustomUserDetailsService
 ) {
     fun listar(idTopico: Long): List<RespostaView> {
-        return respostaRepository.findAll()
+        return respostaRepository.findAllByTopicoId(idTopico)
             .map { e -> respostaViewMapper.map(e) }
     }
 

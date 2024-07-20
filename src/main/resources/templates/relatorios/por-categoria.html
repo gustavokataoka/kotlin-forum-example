@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt">
 <head>
     <title>Relatorio administrativo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
@@ -15,13 +15,13 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th> Categoria </th>
-                    <th> Quantidade </th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${topicosPorCategorias.empty}">
-                    <td colspan="2"> Sem dados </td>
+                    <td colspan="2"> Sem dados</td>
                 </tr>
                 <tr th:each="topicosPorCategoria : ${topicosPorCategorias}">
                     <td th:text="${topicosPorCategoria.categoria}"></td>
