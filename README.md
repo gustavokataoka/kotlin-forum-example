@@ -25,7 +25,7 @@ heroku container:release web
 ENTRYPOINT ["java", "$JAVA_OPTS -XX:+UseContainerSupport", "-Xnx300m -Xss512k -XX:CICompilerCount=2", "-Dserver.port=$PORT", "-Dspring.profiles.active=prod", "-jar", "forum.jar"]
 ```
 
-## CONFIGURAÇÃO DE BANCO DE DADOS MYSQL
+## Configuração de banco de dados Mysql
 
 ```xml
 <dependency>
@@ -57,3 +57,19 @@ mysql -u root -p
 create database forum
 ```
 
+## Configuração do Redis
+
+### Subir com docker
+
+```shell
+docker pull redis:latest
+docker run -d -p 6379:6379 --name redis --restart always redis:latest
+```
+
+### Verificar funcionamento do redis
+
+```shell
+docker exec -it redis sh
+redis-cli
+monitor
+```
