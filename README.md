@@ -63,8 +63,10 @@ create database forum
 
 ```shell
 docker pull redis:latest
-docker run -d -p 6379:6379 --name redis --restart always redis:latest
+docker run -d -p 6300:6379 --name redis --restart always redis:latest
 ```
+
+* Obs: A porta 6300 refere-se a porta do container e a porta 6379 é a porta padrão do redis levantado dentro do container 
 
 ### Verificar funcionamento do redis
 
