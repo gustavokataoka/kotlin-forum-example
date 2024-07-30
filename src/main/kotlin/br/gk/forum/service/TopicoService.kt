@@ -1,6 +1,9 @@
 package br.gk.forum.service
 
-import br.gk.forum.dto.*
+import br.gk.forum.dto.EditTopicoForm
+import br.gk.forum.dto.NovoTopicoForm
+import br.gk.forum.dto.PageDto
+import br.gk.forum.dto.TopicoView
 import br.gk.forum.exception.NotFoundException
 import br.gk.forum.extension.fromEditForm
 import br.gk.forum.extension.toPageDTO
@@ -48,7 +51,7 @@ class TopicoService(
     fun cadastrar(novoTopicoForm: NovoTopicoForm): TopicoView {
         val topico = Topico(
             titulo = novoTopicoForm.titulo,
-            mensagem = novoTopicoForm.mensagem,
+            mensagem = novoTopicoForm.mensagem ?: "",
             curso = cursoService.buscarPorId(novoTopicoForm.idCurso),
             autor = customUserDetailsService.getAuthenticatedUser()
         )

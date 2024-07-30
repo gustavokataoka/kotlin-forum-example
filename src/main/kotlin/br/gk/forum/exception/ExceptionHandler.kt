@@ -4,6 +4,7 @@ import br.gk.forum.dto.ErrorView
 import io.jsonwebtoken.ExpiredJwtException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.authorization.AuthorizationDeniedException
@@ -47,6 +48,21 @@ class ExceptionHandler {
             path = request.servletPath,
             method = request.method,
             errors = errorMessage
+        )
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleValidationError(
+        exception: HttpMessageNotReadableException,
+        request: HttpServletRequest
+    ): ErrorView {
+        return ErrorView(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.name,
+            message = "Erro de validação",
+            path = request.servletPath,
+            method = request.method
         )
     }
 
